@@ -1,0 +1,21 @@
+{
+    "name": "asus/fpoly-base-web3014",
+    "autoload": {
+        "psr-4": {
+            "Asus\\FpolyBaseWeb3014\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "hungdvph46297",
+            "email": "hungdang6721@gmail.com"
+        }
+    ],
+    "require": {
+        "bramus/router": "~1.6",
+        "eftec/bladeone": "^4.13",
+        "doctrine/dbal": "^4.0",
+        "rakit/validation": "^1.4",
+        "vlucas/phpdotenv": "^5.6"
+    }
+}
