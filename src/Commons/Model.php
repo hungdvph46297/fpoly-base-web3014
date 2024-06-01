@@ -10,7 +10,7 @@ class Model
 {
     protected Connection|null $conn;
     protected QueryBuilder $queryBuilder;
-    protected string $tableName;
+    // protected string $tableName;
 
     public function __construct()
     {
@@ -29,115 +29,32 @@ class Model
     }
 
     // CRUD
-    public function all()
+    protected function all()
     {
-        return $this->queryBuilder
-        ->select('*')
-        ->from($this->tableName)
-        ->orderBy('id', 'desc')
-        ->fetchAllAssociative();
     }
 
-    public function count()
+    protected function count()
     {
-        return $this->queryBuilder
-        ->select("COUNT(*) as $this->tableName")
-        ->from($this->tableName)
-        ->fetchOne();
     }
 
-    public function paginate($page = 1, $perPage = 5)
+    protected function paginate($page, $perPage = 10)
     {
-        $offset = $perPage * ($page - 1);
-
-        $data = $this->queryBuilder
-        ->select('*')
-        ->from($this->tableName)
-        ->setFirstResult($offset)
-        ->setMaxResults($perPage)
-        ->orderBy('id', 'desc')
-        ->fetchAllAssociative();
-
-        $totalPage = ceil($this->count() / $perPage);
-
-        return [$data, $totalPage];
     }
 
-    public function findByID($id)
+    protected function findByID($id)
     {
-        return $this->queryBuilder
-            ->select('*')
-            ->from($this->tableName)
-            ->where('id = ?')
-            ->setParameter(0, $id)
-            ->fetchAssociative();
     }
 
-    public function insert(array $data)
+    protected function insert()
     {
-        // $data = [
-        //     'name' => 'Ahihi',
-        //     'email' => 'keke@gnai.com',
-        //     'address' => 'HN'
-        // ];
-
-        if (!empty($data)) {
-            $query = $this->queryBuilder->insert($this->tableName);
-
-            // $query->setValue('name', '?')->setParameter(0, $data['name']);
-            // $query->setValue('email', '?')->setParameter(1, $data['email']);
-            // $query->setValue('address', '?')->setParameter(2, $data['address']);
-
-            $index = 0;
-            foreach($data as $key => $value) {
-                $query->setValue($key, '?')->setParameter($index, $value);
-                
-                ++$index;
-            }
-
-            $query->executeQuery();
-
-            return true;
-        }
-        
-        return false;
     }
 
-    public function update($id, array $data)
+    protected function update()
     {
-        if (!empty($data)) {
-            $query = $this->queryBuilder->update($this->tableName);
-
-            // $data = [
-            //     'name' => 'Ahihi',
-            //     'email' => 'keke@gnai.com',
-            //     'address' => 'HN'
-            // ];
-
-            $index = 0;
-            foreach($data as $key => $value) {
-                $query->set($key, '?')->setParameter($index, $value);
-
-                ++$index;
-            }
-
-            $query->where('id = ?')
-                ->setParameter(count($data), $id)
-                ->executeQuery();
-
-            return true;
-        }
-        
-        return false;
     }
 
-    public function delete($id)
-    {        
-        return $this->queryBuilder
-            ->delete($this->tableName)
-            ->where('id = ?')
-            ->setParameter(0, $id)
-            ->executeQuery();
+    protected function delete()
+    {
     }
 
     public function __destruct()
