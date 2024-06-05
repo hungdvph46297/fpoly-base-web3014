@@ -1,25 +1,46 @@
 <?php
 
+use Asus\FpolyBaseWeb3014\Controllers\Admin\DashboardController;
+use Asus\FpolyBaseWeb3014\Controllers\Admin\ProductController;
 use Asus\FpolyBaseWeb3014\Controllers\Admin\UserController;
+
+$router->before('GET|POST', '/admin/*.*', function() {
+
+    if (!is_logged()) {
+        header('location: ' . url('auth/login') );
+        exit();
+    } 
+
+    if (!is_admin()) {
+        header('location: ' . url() );
+        exit();
+    }
+    
+});
 
 $router->mount('/admin', function () use ($router) {
 
-    // CRUD USER
+    $router->get('/', DashboardController::class . '@dashboard');
+
+    // CRUD PRODUCT
+    $router->mount('/products', function () use ($router) {
+        $router->get('/',               ProductController::class . '@index');  // Danh sách
+        $router->get('/create',         ProductController::class . '@create'); // Show form thêm mới
+        $router->post('/store',         ProductController::class . '@store');  // Lưu mới vào DB
+        $router->get('/{id}/show',      ProductController::class . '@show');   // Xem chi tiết
+        $router->get('/{id}/edit',      ProductController::class . '@edit');   // Show form sửa
+        $router->post('/{id}/update',   ProductController::class . '@update'); // Lưu sửa vào DB
+        $router->get('/{id}/delete',    ProductController::class . '@delete'); // Xóa
+    });
+
     $router->mount('/users', function () use ($router) {
-        $router->get('/',               UserController::class . '@index');
-        $router->get('/create',         UserController::class . '@create');
-        $router->post('/store',         UserController::class . '@store');
-        $router->get('/{id}',           UserController::class . '@show');
-        $router->get('/{id}/edit',      UserController::class . '@edit');
-        $router->put('/{id}',           UserController::class . '@update');
-        $router->delete('/{id}',        UserController::class . '@delete');
+        $router->get('/',               UserController::class . '@index');  // Danh sách
+        $router->get('/create',         UserController::class . '@create'); // Show form thêm mới
+        $router->post('/store',         UserController::class . '@store');  // Lưu mới vào DB
+        $router->get('/{id}/show',      UserController::class . '@show');   // Xem chi tiết
+        $router->get('/{id}/edit',      UserController::class . '@edit');   // Show form sửa
+        $router->post('/{id}/update',   UserController::class . '@update'); // Lưu sửa vào DB
+        $router->get('/{id}/delete',    UserController::class . '@delete'); // Xóa
     });
     
 });
-// $router->get('/admin/users/',               UserController::class . '@index');Danh sach
-// $router->get('/admin/users/create',         UserController::class . '@create');Hien thi form them  moi
-// $router->post('/admin/users/store',         UserController::class . '@store');Luu du lieu tu form them moi vaodb
-// $router->get('/admin/users/{id}',           UserController::class . '@show');xem chi tiet
-// $router->get('/admin/users/{id}/edit',      UserController::class . '@edit');hien thi form cap nhat
-// $router->put('/admin/users/{id}/update',   UserController::class . '@update');luu dl tu form cap nhat vao db
-// $router->delete('/admin/users/{id}/delete',   UserController::class . '@delete');xoa ban ghi trong db
