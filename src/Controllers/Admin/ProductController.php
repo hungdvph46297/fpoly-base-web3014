@@ -165,7 +165,7 @@ class ProductController extends Controller
             $_SESSION['status'] = true;
             $_SESSION['msg'] = 'Thao tác thành công!';
 
-            header('Location: ' . url("admin/products/$id/edit"));
+            header('Location: ' . url("admin/products"));
             exit;
         }
     }
