@@ -1,8 +1,8 @@
 <header class="navigation fixed-top">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-white">
-            <a class="navbar-brand order-1" href="index.html">
-                <img class="img-fluid" width="100px" src="{{ asset('assets/client/images/logo.png') }}"
+            <a class="navbar-brand order-1" href="{{ url('client/layouts') }}">
+                <img class="img-fluid" width="100px" src="{{ asset ('assets/client/images/logo.png') }}"
                     alt="Reader | Hugo Personal Blog Template">
             </a>
             <div class="collapse navbar-collapse text-center order-lg-2 order-3" id="navigation">
@@ -86,7 +86,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="shop.html">Shop</a>
+                        <a class="nav-link" href="{{ url('client/listproducts') }}">Shop</a>
                     </li>
                 </ul>
             </div>

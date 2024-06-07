@@ -10,6 +10,12 @@ class HomeController extends Controller
 
         $this->renderViewClient('layouts/master.blade.php');
     }
+
+    public function listproducts() {
+
+        $this->renderViewClient('listproducts/master.blade.php');
+    }
+
     public function topTrending(){
         
     }
