@@ -16,15 +16,7 @@
         <div class="row">
             <h1>Welcome {{ $name }} to my website!</h1>
 
-            <nav>
-                @if (!is_logged())
-                    <a class="btn btn-primary" href="{{ url('auth/login') }}">Login</a>
-                @endif
-
-                @if (is_logged())
-                    <a class="btn btn-danger" href="{{ url('auth/logout') }}">Logout</a>
-                @endif
-            </nav>
+           
         </div>
     </div>
 
