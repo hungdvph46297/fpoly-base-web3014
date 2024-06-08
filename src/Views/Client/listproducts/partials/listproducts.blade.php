@@ -1,4 +1,3 @@
-@include ('client.listproducts') 
 
 <section class="section-sm">
         <div class="container">
