@@ -13,7 +13,9 @@
                                     <a href="{{ url('products/' . $product['id']) }}">
                                         {{ $product['name'] }}</a>
                                 </h4>
-                                <p class="h4">{{ $product['price_regular'] }}</p>
+                                <p ><a href="{{ url('products/' . $product['c_id']) }}" class="h4 text-muted font-weight-light mb-3">
+                                    {{ $product['c_name'] }}</a></p>
+                                <p class="h4">{{ $product['price'] }}$</p>
                                 <a href="{{ url('cart/add') }}?quantity=1&productID={{ $product['id'] }}" 
                                 class="btn btn-primary">Thêm vào giỏ hàng</a>
                             </div>

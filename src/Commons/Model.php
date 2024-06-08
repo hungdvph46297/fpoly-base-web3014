@@ -38,14 +38,6 @@ class Model
         ->fetchAllAssociative();
     }
 
-    public function allproduct()
-    {
-        return $this->queryBuilder
-        ->select('*')
-        ->from($this->tableName)
-        ->orderBy('id', 'desc')
-        ->fetchAllAssociative();
-    }
 
     public function count()
     {

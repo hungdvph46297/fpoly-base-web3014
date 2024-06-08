@@ -8,11 +8,12 @@ class Product extends Model
 {
     protected string $tableName = 'products';
 
-    public function all() {
+    public function allproduct()
+   {
         return $this->queryBuilder
         ->select(
             'p.id', 'p.category_id', 'p.name', 'p.img_thumbnail', 'p.created_at', 'p.updated_at',
-            'c.name as c_name'
+            'c.name as c_name', 'c.id as c_id', 'p.price'
         )
         ->from($this->tableName, 'p')
         ->innerJoin('p', 'categories', 'c', 'c.id = p.category_id')
