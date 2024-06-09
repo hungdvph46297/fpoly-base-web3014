@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Asus\FpolyBaseWeb3014\Models;
 
@@ -9,47 +9,70 @@ class Product extends Model
     protected string $tableName = 'products';
 
     public function allproduct()
-   {
+    {
         return $this->queryBuilder
-        ->select(
-            'p.id', 'p.category_id', 'p.name', 'p.img_thumbnail', 'p.created_at', 'p.updated_at',
-            'c.name as c_name', 'c.id as c_id', 'p.price'
-        )
-        ->from($this->tableName, 'p')
-        ->innerJoin('p', 'categories', 'c', 'c.id = p.category_id')
-        ->orderBy('p.id', 'desc')
-        ->fetchAllAssociative();
+            ->select(
+                'p.id',
+                'p.category_id',
+                'p.name',
+                'p.img_thumbnail',
+                'p.created_at',
+                'p.updated_at',
+                'c.name as c_name',
+                'c.id as c_id',
+                'p.price'
+            )
+            ->from($this->tableName, 'p')
+            ->innerJoin('p', 'categories', 'c', 'c.id = p.category_id')
+            ->orderBy('p.id', 'desc')
+            ->fetchAllAssociative();
     }
 
-    public function paginate($page = 1, $perPage = 5)
+
+    public function paginate($page = 1, $perPage = 6)
     {
-        $queryBuilder = clone($this->queryBuilder);
+        $queryBuilder = clone ($this->queryBuilder);
 
         $totalPage = ceil($this->count() / $perPage);
 
         $offset = $perPage * ($page - 1);
 
-        $data = $queryBuilder
-        ->select(
-            'p.id', 'p.category_id', 'p.name', 'p.img_thumbnail', 'p.created_at', 'p.updated_at',
-            'c.name as c_name'
-        )
-        ->from($this->tableName, 'p')
-        ->innerJoin('p', 'categories', 'c', 'c.id = p.category_id')
-        ->setFirstResult($offset)
-        ->setMaxResults($perPage)
-        ->orderBy('p.id', 'desc')
-        ->fetchAllAssociative();
+        $queryBuilder
+            ->select(
+                'p.id',
+                'p.category_id',
+                'p.name',
+                'p.img_thumbnail',
+                'p.price',
+                'p.created_at',
+                'p.updated_at',
+                'c.name as c_name'
+            )
+            ->from($this->tableName, 'p')
+            ->innerJoin('p', 'categories', 'c', 'c.id = p.category_id')
+            ->setFirstResult($offset)
+            ->setMaxResults($perPage)
+            ->orderBy('p.id', 'desc');
+
+        $data = $queryBuilder->fetchAllAssociative();
 
         return [$data, $totalPage];
     }
+
+
 
     public function findByID($id)
     {
         return $this->queryBuilder
             ->select(
-                'p.id', 'p.category_id', 'p.name', 'p.img_thumbnail', 'p.created_at', 'p.updated_at',
-                'p.overview', 'p.content',
+                'p.id',
+                'p.category_id',
+                'p.name',
+                'p.img_thumbnail',
+                'p.created_at',
+                'p.updated_at',
+                'p.overview',
+                'p.content',
                 'c.name as c_name'
             )
             ->from($this->tableName, 'p')
@@ -58,4 +81,5 @@ class Product extends Model
             ->setParameter(0, $id)
             ->fetchAssociative();
     }
+
 }

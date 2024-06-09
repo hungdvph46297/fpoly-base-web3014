@@ -42,6 +42,8 @@
     <!-- listproducts -->
     @include('listproducts.partials.listproducts')
 
+    
+
     @include('layouts.partials.footer')
 
    @include('listproducts.partials.js')
