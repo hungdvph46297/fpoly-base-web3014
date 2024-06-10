@@ -34,6 +34,7 @@
                     <label for="name" class="form-label">Name:</label>
                     <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
                 </div>
+                
                 <div class="mb-3 mt-3">
                     <label for="img_thumbnail" class="form-label">Img Thumbnail:</label>
                     <input type="file" class="form-control" id="img_thumbnail" placeholder="Enter img_thumbnail" name="img_thumbnail">

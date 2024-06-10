@@ -41,8 +41,7 @@
     <!-- start of banner -->
     @include('layouts.partials.banner')
     <!-- end of banner -->
-    @include('layouts.partials.noidung')
-
+    @yield('content')
     
 
     @include('layouts.partials.footer')

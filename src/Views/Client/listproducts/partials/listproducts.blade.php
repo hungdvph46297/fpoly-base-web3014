@@ -1,5 +1,5 @@
 <div class="container">
-    @include('listproducts.partials.categories')
+    {{-- @include('listproducts.partials.categories') --}}
 
     <section class=" mb-5 mt-4 ">
         <div class="">
@@ -25,11 +25,7 @@
                                     @else
                                         <p class="text-muted font-weight-light mb-3">Category not available</p>
                                     @endif
-                                    @if (isset($product['price']))
-                                        <p class="h4">{{ $product['price'] }}$</p>
-                                    @else
-                                        <p class="text-muted font-weight-light mb-3">Price not available</p>
-                                    @endif
+                                    
                                     <a href="{{ url('cart/add') }}?quantity=1&productID={{ $product['id'] }}"
                                         class="btn btn-primary">Thêm vào giỏ hàng</a>
                                 </div>

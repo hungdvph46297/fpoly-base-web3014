@@ -1,4 +1,4 @@
-@extends('layouts.master')
+{{-- @extends('layouts.master')
 
 @section('title')
     Dashboard
@@ -43,9 +43,40 @@
                         </div>
                     </div>
                 </div>
-                <div class="white_card_body" style="height: 286px;">
-                    <canvas id="bar"></canvas>
-                </div>
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                <script type="text/javascript">
+                    google.charts.load('current', {
+                        packages: ['corechart', 'bar']
+                    });
+                    google.charts.setOnLoadCallback(drawChart);
+
+                    function drawChart() {
+                        var data = google.visualization.arrayToDataTable([
+                            ['Tên danh mục', 'Số lượng sản phẩm'],
+                            {
+                                %
+                                for row in analysisProduct %
+                            }
+                            ['{{ row[0] }}', {{ row[1] }}],
+                            {
+                                % endfor %
+                            }
+                        ]);
+
+                        var options = {
+                            title: 'Số lượng sản phẩm theo danh mục',
+                            hAxis: {
+                                title: 'Danh mục',
+                            },
+                            vAxis: {
+                                title: 'Số lượng'
+                            }
+                        };
+
+                        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+                        chart.draw(data, options);
+                    }
+                </script>
             </div>
             <div class="white_card mb_20">
                 <div class="white_card_body renew_report_card d-flex align-items-center justify-content-between flex-wrap">
@@ -60,4 +91,57 @@
             </div>
         </div>
     </div>
+@endsection --}}
+
+@extends('layouts.master')
+
+@section('title')
+    Dashboard
 @endsection
+
+@section('content')
+    <div class="row">
+        <div class="col-12">
+            <div class="page_title_box d-flex align-items-center justify-content-between">
+                <div class="page_title_left">
+                    <h3 class="f_s_30 f_w_700 text_white">Dashboard</h3>
+                    <ol class="breadcrumb page_bradcam mb-0">
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Salessa </a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Sales</li>
+                    </ol>
+                </div>
+                <a href="#" class="white_btn3">Create Report</a>
+            </div>
+        </div>
+    </div>
+
+    
+@endsection
+
+
+@section('content')
+    <div class="row">
+        <div class="col-12">
+            <h3>Dashboard</h3>
+            <table border="1" cellspacing="0" cellpadding="10">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Product Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($product as $data)
+                        <tr>
+                            <td>{{ $data['name'] }}</td>
+                            <td>{{ $data['product_count'] }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+@endsection
+
+

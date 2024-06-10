@@ -14,8 +14,13 @@ class HomeController extends Controller
 
     public function index()
     {
+        $productFirstLatest = $this->product->getFirstLatest();
 
-        $this->renderViewClient('layouts/master.blade.php');
+      return $this->renderViewClient('home',
+        [
+            'productFirstLatest' => $productFirstLatest
+        ]);
+        
     }
 
     private Product $product;
@@ -46,8 +51,6 @@ class HomeController extends Controller
         'totalPage' => $totalPage,
     ]);
 }
-
-
     public function topTrending()
     {
     }
